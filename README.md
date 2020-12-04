@@ -1,11 +1,9 @@
-## My Project
+## Amazon Transcribe & Email Integration
 
-TODO: Fill this README out!
+## Architecture
 
-Be sure to:
+See the high-level Architecture [Architecture](ArchitectureDiagram.svg).
 
-* Change the title in this README
-* Edit your repository description on GitHub
 
 ## Security
 
