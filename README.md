@@ -20,7 +20,7 @@ See the high-level Architecture [Architecture](ArchitectureDiagram.svg).
 
 1. Install AWS CLI, Gradle (optionally Maven) and Java8
 2. Clone the repo 
-3. Create an user in WorkMail assign an email address like user@abc.awsapps.com
+3. Create a user in WorkMail assign an email address like user@abc.awsapps.com
 4. Create a Lambda function (from the code EmailProcessorLambda.py) with Python 3.8 Runtime
 5. Modify S3BucketName and DynamoRegion properties in the function accordingly
 6. Assign S3, DynamoDB and WorkMail permissions to the role used by this lambda function
