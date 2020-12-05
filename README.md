@@ -20,12 +20,12 @@ See the high-level [Architecture](ArchitectureDiagram.svg).
 
 1. Install AWS CLI, Gradle (optionally Maven) and Java8
 2. Clone the repo 
-3. Create a user in WorkMail assign an email address like user@abc.awsapps.com
+3. Create a user in WorkMail Organization and assign an email address like user@abc.awsapps.com
 4. Create a Lambda function (from the code EmailProcessorLambda.py) with Python 3.8 Runtime
 5. Modify S3BucketName and DynamoRegion properties in the function accordingly
 6. Assign S3, DynamoDB and WorkMail permissions to the role used by this lambda function
 7. Create a rule by going to WorkMail console -> Organization Settings -> Inbound Rules and setting Action to Run Lambda and specifying name of Lambda function created in earlier step and specify domain/email address for the filtering
-8. In the project directory update BUCKET_NAME variable inside 1-create-bucket.sh script
+8. In the project directory update BUCKET_NAME variable in "create-bucket.sh" script
 9. Update Constants.java file accordingly 
 10. Update template.yml file (s3 bucket name etc.)
 11. Execute "create-bucket.sh"
