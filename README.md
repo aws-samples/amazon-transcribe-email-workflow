@@ -45,8 +45,8 @@ See the high-level [Architecture](ArchitectureDiagram.svg).
 13. Execute "build-layer.sh"
 14. Execute "deploy.sh"
 15. Go to Lambda Console and add an S3 event trigger with following configurations:
-    Bucket: "transcribe-email"
-    Event Type: "All Object Create Events"
+    Bucket: "transcribe-email",
+    Event Type: "All Object Create Events",
     Prefix: "audio/"
 16. Assign S3, DynamoDB, SES and Transcribe permissions to the role used by this lambda function
 17. Go to SES console and validate email addresses that are going to be used for testing (this is a MUST if the SES account is a Sandbox account) 
