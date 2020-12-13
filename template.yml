@@ -24,17 +24,6 @@ Resources:
       Tracing: Active
       Layers:
         - !Ref libs
-      Events:
-        s3Notification:
-          Type: S3
-          Properties:
-            Bucket: !Ref bucket
-            Events: s3:ObjectCreated:*
-            Filter:
-              S3Key:
-                Rules:
-                - Name: prefix
-                  Value: inbound/
   libs:
     Type: AWS::Serverless::LayerVersion
     Properties:
