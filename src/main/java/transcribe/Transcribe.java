@@ -15,6 +15,7 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.AccessControlList;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
@@ -24,6 +25,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.transcribe.AmazonTranscribe;
+import com.amazonaws.services.transcribe.AmazonTranscribeClient;
 import com.amazonaws.services.transcribe.AmazonTranscribeClientBuilder;
 import com.amazonaws.services.transcribe.model.DeleteTranscriptionJobRequest;
 import com.amazonaws.services.transcribe.model.GetTranscriptionJobRequest;
@@ -45,45 +47,28 @@ public class Transcribe{
 	//@Autowired
 	//private Environment env;
 
-	private String awsAccessKey = Constants.awsAccessKey;
-	private String awsSecretKey = Constants.awsSecretKey;
 	private String bucketName = Constants.bucketName;
+	private Regions regions = Constants.awsSeerviceRegion;
 
 	public AmazonTranscribe transcribeClient() {
 		System.out.println("Intialize Transcribe Client");
-		AWSCredentials credentials = new BasicAWSCredentials(
-				awsAccessKey, 
-				awsSecretKey
-				);
 		AmazonTranscribe amazonTranscribe = AmazonTranscribeClientBuilder
 				.standard()
-				.withCredentials(new AWSStaticCredentialsProvider(credentials))
-				.withRegion(Regions.US_EAST_1)
-				.build();
+				.withRegion(regions)
+				.build();		
+		
 		return amazonTranscribe;
-		//BasicAWSCredentials awsCreds = new BasicAWSCredentials(awsAccessKey, awsSecretKey);
-		//AWSStaticCredentialsProvider awsStaticCredentialsProvider = new AWSStaticCredentialsProvider(awsCreds);
-		//return AmazonTranscribeClientBuilder.standard().withCredentials(awsStaticCredentialsProvider)
-		//		.withRegion(awsRegion).build();
 	}
 
 
 	public AmazonS3 s3Client() {
 		System.out.println("Intialize AWS S3 Client");
-		AWSCredentials credentials = new BasicAWSCredentials(
-				awsAccessKey, 
-				awsSecretKey
-				);
 		AmazonS3 s3client = AmazonS3ClientBuilder
 				.standard()
-				.withCredentials(new AWSStaticCredentialsProvider(credentials))
-				.withRegion(Regions.US_EAST_1)
+				.withRegion(regions)
 				.build();
+		
 		return s3client;
-		//BasicAWSCredentials awsCreds = new BasicAWSCredentials(awsAccessKey, awsSecretKey);
-		//AWSStaticCredentialsProvider awsStaticCredentialsProvider = new AWSStaticCredentialsProvider(awsCreds);
-		//return AmazonS3ClientBuilder.standard().withCredentials(awsStaticCredentialsProvider).withRegion(awsRegion)
-		//		.build();
 	}
 
 	public void deleteFileFromAwsBucket(String fileName) {
