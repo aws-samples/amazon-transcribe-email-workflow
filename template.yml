@@ -21,6 +21,9 @@ Resources:
         - AWSXrayWriteOnlyAccess
         - AWSLambdaVPCAccessExecutionRole
         - AmazonS3FullAccess
+        - AmazonSESFullAccess
+        - AmazonDynamoDBFullAccess
+        - AmazonTranscribeFullAccess
       Tracing: Active
       Layers:
         - !Ref libs
