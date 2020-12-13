@@ -1,11 +1,12 @@
 package transcribe;
 
-
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
@@ -22,20 +23,15 @@ import java.util.Date;
 import java.util.Random;
 
 public class Util {
-
-	private String awsAccessKey = Constants.awsAccessKey;
-	private String awsSecretKey = Constants.awsSecretKey;
+	
+	private Regions regions = Constants.awsSeerviceRegion;
 
 	public DynamoDB getDynamoDB() {
 		//System.out.println("Util invoked...");
-		AWSCredentials credentials = new BasicAWSCredentials(
-				awsAccessKey, 
-				awsSecretKey
-				);
 		AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
-				.withRegion(Regions.US_EAST_1)
-				.withCredentials(new AWSStaticCredentialsProvider(credentials))
+				.withRegion(regions)
 				.build(); 
+		
 		DynamoDB dynamoDB = new DynamoDB(client);
 		
 		return dynamoDB;
