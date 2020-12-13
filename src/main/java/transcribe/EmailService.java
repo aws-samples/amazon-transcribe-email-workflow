@@ -34,10 +34,9 @@ import com.amazonaws.services.simpleemail.model.SendRawEmailRequest;
 
 public class EmailService {
 
-	private String awsAccessKey = Constants.awsAccessKey;
-	private String awsSecretKey = Constants.awsSecretKey;
 	private String bucketName = Constants.bucketName;
 	private String SENDER = Constants.senderEmail;
+	private Regions regions = Constants.awsSeerviceRegion;
 
 	// The email body for recipients with non-HTML email clients.
 	private static String BODY_TEXT = "Hello,\r\n"
@@ -107,14 +106,11 @@ public class EmailService {
 			System.out.println("Attempting to send an email through Amazon SES "
 					+"using the AWS SDK for Java...");
 
-			AWSCredentials credentials = new BasicAWSCredentials(
-					awsAccessKey, 
-					awsSecretKey
-					);
-
 			AmazonSimpleEmailService client = 
-					AmazonSimpleEmailServiceClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(credentials))
-					.withRegion(Regions.US_EAST_1).build();
+					AmazonSimpleEmailServiceClientBuilder
+					.standard()
+					.withRegion(regions)
+					.build();
 
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			message.writeTo(outputStream);
