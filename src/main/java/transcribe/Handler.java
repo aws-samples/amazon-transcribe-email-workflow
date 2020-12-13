@@ -96,7 +96,7 @@ public class Handler implements RequestHandler<S3Event, String> {
 			TranscriptionTextDTO dto = list.get(cnt);
 			response = dto.getTranscript();
 			System.out.println("Text :"+dto.getTranscript());
-			transcribeObj.uploadResponseFileToAwsBucket(outputFile,dto.getTranscript());
+			//transcribeObj.uploadResponseFileToAwsBucket(outputFile,dto.getTranscript());
 		}
 		transcriptionTextDTO.setTranscript(response);
 
