@@ -21,8 +21,9 @@ See the high-level [Architecture](ArchitectureDiagram.svg).
 1. Install AWS CLI, Gradle (optionally Maven) and Java8
 2. Clone the repo 
 3. Create a user in WorkMail Organization and assign an email address like user@abc.awsapps.com
+4. Go to DynamoDB Console and create a Table ("Transcribe") with MSG_ID (String) as the Partition Key
 4. Create a Lambda function (from the code EmailProcessorLambda.py) with Python 3.8 Runtime
-5. Modify S3BucketName and DynamoRegion properties in the function accordingly (if the s3bucket doesnt exist, create one)
+5. Modify DynamoRegion and TableName properties in the function accordingly 
 6. Update Timeout setting of this function to 1 minute
 7. Assign S3, DynamoDB and WorkMail permissions to the role used by this lambda function. To access raw content of email body, add an inline policy like this:
 {
@@ -37,15 +38,16 @@ See the high-level [Architecture](ArchitectureDiagram.svg).
         }
     ]
 }
-8. Go to DynamoDB Console and create a Table ("Transcribe") with MSG_ID (String) as the Partition Key
+
 8. Create a rule by going to WorkMail console -> Organization Settings -> Inbound Rules and setting Action to Run Lambda and specifying name of Lambda function created in earlier step and specify domain/email address for the filtering
-9. In the project directory update BUCKET_NAME variable in "create-bucket.sh" script (this is the bucket where Java Lambda Layer archive will be stored)
-10. Update Constants.java file accordingly (bucketName should match the name from step# 5)
-11. Update template.yml file (... Events -> s3Notification -> Properties -> Bucket:bucketName should match the name from step# 5)
+10. Update Constants.java file accordingly 
 12. Execute "create-bucket.sh"
 13. Execute "build-layer.sh"
 14. Execute "deploy.sh"
-15. Confirm if Java Lambda function has been created and S3 event trigger has been configured correctly
+15. Go to Lambda Console and add an S3 event trigger with following configurations:
+    Bucket: "transcribe-email"
+    Event Type: "All Object Create Events"
+    Prefix: "audio/"
 16. Assign S3, DynamoDB, SES and Transcribe permissions to the role used by this lambda function
 17. Go to SES console and validate email addresses that are going to be used for testing (this is a MUST if the SES account is a Sandbox account) 
 18. Send an email to the WorkMail inbox with an audio file attachment (WAV/M4A/MP3/MP4) and in the response email - the sender will receive the transcribed file 
