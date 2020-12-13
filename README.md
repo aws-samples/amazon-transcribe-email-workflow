@@ -24,7 +24,7 @@ See the high-level [Architecture](ArchitectureDiagram.svg).
 4. Go to DynamoDB Console and create a Table ("Transcribe") with MSG_ID (String) as the Partition Key
 4. Create a Lambda function (from the code EmailProcessorLambda.py) with Python 3.8 Runtime
 5. Modify DynamoRegion and TableName properties in the function accordingly 
-6. Update Timeout setting of this function to 1 minute
+6. Update Timeout setting of this function to 5 minutes
 7. Assign S3, DynamoDB and WorkMail policies to the role used by this lambda function. Additionally, to access raw content of email body, add an inline policy like this:
 {
     "Version": "2012-10-17",
