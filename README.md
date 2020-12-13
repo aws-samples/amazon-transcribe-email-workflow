@@ -24,7 +24,20 @@ See the high-level [Architecture](ArchitectureDiagram.svg).
 4. Create a Lambda function (from the code EmailProcessorLambda.py) with Python 3.8 Runtime
 5. Modify S3BucketName and DynamoRegion properties in the function accordingly
 6. Update Timeout setting of this function to 1 minute
-7. Assign S3, DynamoDB and WorkMail permissions to the role used by this lambda function
+7. Assign S3, DynamoDB and WorkMail permissions to the role used by this lambda function. To access raw content of email body, add an inline policy like this:
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "workmailmessageflow:GetRawMessageContent"
+            ],
+            "Resource": "arn:aws:workmailmessageflow:region_code:aws_account_id:message/*",
+            "Effect": "Allow"
+        }
+    ]
+}
+8. Go to DynamoDB Console and create a Table ("Transcribe") with MSG_ID (String) as the Partition Key
 8. Create a rule by going to WorkMail console -> Organization Settings -> Inbound Rules and setting Action to Run Lambda and specifying name of Lambda function created in earlier step and specify domain/email address for the filtering
 9. In the project directory update BUCKET_NAME variable in "create-bucket.sh" script
 10. Update Constants.java file accordingly 
