@@ -114,18 +114,19 @@ public class Transcribe{
 	}
 
 	public StartTranscriptionJobResult startTranscriptionJob(String key) {
-		System.out.println("Start Transcription Job By Key : "+key);
+		System.out.println("Start Transcription Job By Key Before : "+key);
+		Media media = new Media().withMediaFileUri(s3Client().getUrl(bucketName, key).toExternalForm());
+		media.setMediaFileUri("s3://"+bucketName+"/"+key);
+		System.out.println("startTranscriptionJob :: media created... "+media.getMediaFileUri());
+
+		key = key.substring(key.indexOf("/")+1);
+		System.out.println("Start Transcription Job By Key After : "+key);
+
 		int length = 10;
 		boolean useLetters = true;
 		boolean useNumbers = false;
 		String generatedString = RandomStringUtils.random(length, useLetters, useNumbers);
 		System.out.println("startTranscriptionJob :: bucketName "+bucketName);
-		Media media = new Media().withMediaFileUri(s3Client().getUrl(bucketName, key).toExternalForm());
-		//String prefix = key.substring(0, key.lastIndexOf("."));
-		//String suffix = key.substring(key.lastIndexOf(".")+1);
-		//media.setMediaFileUri("s3://"+bucketName+"/"+prefix.toUpperCase()+"."+suffix);
-		media.setMediaFileUri("s3://"+bucketName+"/"+key);
-		System.out.println("startTranscriptionJob :: media created... "+media.getMediaFileUri());
 		String jobName = key.concat(generatedString);
 		System.out.println("jobName : "+jobName);
 
