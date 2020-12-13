@@ -3,7 +3,7 @@ import email
 import os
 from botocore.exceptions import ClientError
 
-S3BucketName='sanjay-transcribe-new'
+S3BucketName='transcribe-email'
 DynamoRegion='us-east-1'
 DynamoTableName='Transcribe'
 
@@ -35,7 +35,7 @@ def lambda_handler(event, context):
                 #fp.close()
                 extension = fileName[fileName.rindex("."):]
                 print("extension : " + extension)
-                newKey = msg_id+""+extension
+                newKey = "audio/"+msg_id+""+extension
                 s3 = boto3.client('s3')
                 s3.create_bucket(Bucket=S3BucketName)
                 s3.put_object(Body=part.get_payload(decode=True), Bucket=S3BucketName, Key=newKey)
@@ -89,4 +89,3 @@ def transcribe_file(job_name, file_uri, transcribe_client):
         else:
             print(f"Waiting for {job_name}. Current status is {job_status}.")
         time.sleep(10)    
-			
