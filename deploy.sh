@@ -1,7 +1,6 @@
 #!/bin/bash
 set -eo pipefail
 ARTIFACT_BUCKET=$(cat bucket-name.txt)
-aws s3 cp images/sample-s3-java.png s3://$ARTIFACT_BUCKET/inbound/sample-s3-java.png
 TEMPLATE=template.yml
 if [ $1 ]
 then
