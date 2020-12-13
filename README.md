@@ -25,7 +25,7 @@ See the high-level [Architecture](ArchitectureDiagram.svg).
 4. Create a Lambda function (from the code EmailProcessorLambda.py) with Python 3.8 Runtime
 5. Modify DynamoRegion and TableName properties in the function accordingly 
 6. Update Timeout setting of this function to 1 minute
-7. Assign S3, DynamoDB and WorkMail permissions to the role used by this lambda function. To access raw content of email body, add an inline policy like this:
+7. Assign S3, DynamoDB and WorkMail policies to the role used by this lambda function. Additionally, to access raw content of email body, add an inline policy like this:
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -48,7 +48,6 @@ See the high-level [Architecture](ArchitectureDiagram.svg).
     Bucket: "transcribe-email",
     Event Type: "All Object Create Events",
     Prefix: "audio/"
-16. Assign S3, DynamoDB, SES and Transcribe permissions to the role used by this lambda function
 17. Go to SES console and validate email addresses that are going to be used for testing (this is a MUST if the SES account is a Sandbox account) 
 18. Send an email to the WorkMail inbox with an audio file attachment (WAV/M4A/MP3/MP4) and in the response email - the sender will receive the transcribed file 
 
