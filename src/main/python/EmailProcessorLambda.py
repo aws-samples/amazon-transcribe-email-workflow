@@ -30,17 +30,15 @@ def lambda_handler(event, context):
             filePath = os.path.join(".", 'attachments', fileName)
             if not os.path.isfile(filePath) :
                 print("file : " + fileName)
-                #fp = open(filePath, 'wb')
-                #fp.write(part.get_payload(decode=True))
-                #fp.close()
                 extension = fileName[fileName.rindex("."):]
                 print("extension : " + extension)
-                newKey = "audio/"+msg_id+""+extension
-                s3 = boto3.client('s3')
-                s3.create_bucket(Bucket=S3BucketName)
-                s3.put_object(Body=part.get_payload(decode=True), Bucket=S3BucketName, Key=newKey)
+                if (extension.lower() == '.wav' or extension.lower() == '.m4a' or extension.lower() == '.mp3' or extension.lower() == '.mp4'):
+                	newKey = "audio/"+msg_id+""+extension
+                	s3 = boto3.client('s3')
+                	s3.create_bucket(Bucket=S3BucketName)
+                	s3.put_object(Body=part.get_payload(decode=True), Bucket=S3BucketName, Key=newKey)
    
-                put_item(fileName, fromAdd, newKey)
+                	put_item(fileName, fromAdd, newKey)
  
 def put_item(fileName, email, msgId):
     dynamodb = boto3.resource('dynamodb', region_name=DynamoRegion)
