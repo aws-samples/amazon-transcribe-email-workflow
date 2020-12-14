@@ -41,6 +41,7 @@ See the high-level [Architecture](ArchitectureDiagram.svg).
 
 8. Create a rule by going to WorkMail console -> Organization Settings -> Inbound Rules and setting Action to Run Lambda and specifying name of Lambda function created in earlier step and specify domain/email address for the filtering
 10. Update Constants.java file accordingly 
+11. Update ZIP file name (build/distributions/TranscribeEmailDemo.zip) in "Template.yml" and "build-layer.sh" files to match
 12. Execute "create-bucket.sh"
 13. Execute "build-layer.sh"
 14. Execute "deploy.sh"
