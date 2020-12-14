@@ -24,6 +24,7 @@ Resources:
         - AmazonSESFullAccess
         - AmazonDynamoDBFullAccess
         - AmazonTranscribeFullAccess
+        - AmazonWorkMailFullAccess
       Tracing: Active
       Layers:
         - !Ref libs
