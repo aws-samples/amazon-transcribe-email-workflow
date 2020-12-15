@@ -42,7 +42,7 @@ See the high-level [Architecture](ArchitectureDiagram.svg).
 8. Create a rule by going to WorkMail console -> Organization Settings -> Inbound Rules and setting Action to Run Lambda and specifying name of Lambda function created in earlier step and specify domain/email address for the filtering
 10. Update Constants.java file accordingly 
 11. Update ZIP file name (build/distributions/TranscribeEmailDemo.zip) in "Template.yml" and "build-layer.sh" files to match (most likely the project name)
-12. Execute "create-bucket.sh"
+12. Execute "create-bucket.sh". In case of "bucket already exists" error, change the bucket name in ALL create-bucket.sh, Constants.java and Python Lambda code (stored in a variable) - they should all be the same.
 13. Execute "build-layer.sh"
 14. Execute "deploy.sh"
 15. Go to Lambda Console and add an S3 event trigger with following configurations:
