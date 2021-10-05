@@ -3,7 +3,7 @@ Amazon Transcribe makes it easy for developers to add speech to text capabilitie
 
 ## Architecture
 
-See the high-level [Architecture](ArchitectureDiagram.svg).
+See the high level [Architecture](ArchitectureDiagram.svg).
 
 ## Tech Stack (Services/Frameworks)
 
