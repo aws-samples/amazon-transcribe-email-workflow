@@ -89,10 +89,12 @@ public class Transcribe{
 		String key = fileName.replaceAll(" ", "_").toLowerCase();
 		//String newKey = key + "-" + System.currentTimeMillis();
 		//s3Client().copyObject(bucketName, key, bucketName, newKey);
+		S3Object s3object = null;
+		S3ObjectInputStream inputStream = null;
 		try {
 			Thread.sleep(1000);
-			S3Object s3object = s3Client().getObject(bucketName, key);
-			S3ObjectInputStream inputStream = s3object.getObjectContent();
+			s3object = s3Client().getObject(bucketName, key);
+			inputStream = s3object.getObjectContent();
 			File file = new File("/tmp/test2.wav");
 			if (file.createNewFile()) {
 				System.out.println("File created: " + file.getName());
@@ -110,6 +112,19 @@ public class Transcribe{
 			
 		}catch(Exception e) {
 			e.printStackTrace();
+		}finally{
+			
+			try{
+				if(s3object != null){
+					s3object.close();
+				}
+				if(inputStream != null){
+					inputStream.close();
+				}
+			}catch(Exception resExec){
+				resExec.printStackTrace();
+			}
+			
 		}
 	}
 
