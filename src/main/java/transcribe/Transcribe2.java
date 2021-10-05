@@ -42,7 +42,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class Transcribe{
+public class Transcribe2{
 
 	//@Autowired
 	//private Environment env;
@@ -55,8 +55,8 @@ public class Transcribe{
 		AmazonTranscribe amazonTranscribe = AmazonTranscribeClientBuilder
 				.standard()
 				.withRegion(regions)
-				.build();		
-		
+				.build();
+
 		return amazonTranscribe;
 	}
 
@@ -67,7 +67,7 @@ public class Transcribe{
 				.standard()
 				.withRegion(regions)
 				.build();
-		
+
 		return s3client;
 	}
 
@@ -101,19 +101,19 @@ public class Transcribe{
 			}
 			//FileUtils.copyInputStreamToFile(inputStream, file);
 			//System.out.println("Object Size : "+inputStream.read());
-			PutObjectRequest put1 = new PutObjectRequest("sanjay-textract", 
-					"test.wav", 
+			PutObjectRequest put1 = new PutObjectRequest("sanjay-textract",
+					"test.wav",
 					file);
 			s3Client().putObject(put1.withCannedAcl(CannedAccessControlList.BucketOwnerFullControl));
-			
+
 			CopyObjectRequest copy1 = new CopyObjectRequest("sanjay-transcribe","test.wav","sanjay-textract","test2.wav");
 			s3Client().copyObject(copy1.withCannedAccessControlList(CannedAccessControlList.BucketOwnerFullControl));
-			
-			
+
+
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally{
-			
+/*
 			try{
 				if(s3object != null){
 					s3object.close();
@@ -124,7 +124,7 @@ public class Transcribe{
 			}catch(Exception resExec){
 				resExec.printStackTrace();
 			}
-			
+*/
 		}
 	}
 
@@ -153,7 +153,7 @@ public class Transcribe{
 		System.out.println("Job result...");
 
 		return startTranscriptionJobResult;
-	} 
+	}
 
 
 	public GetTranscriptionJobResult getTranscriptionJobResult(String jobName) {
