@@ -111,9 +111,9 @@ public class Transcribe{
 			
 			
 		}catch(Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		}finally{
-			/*
+			
 			try{
 				if(s3object != null){
 					s3object.close();
@@ -124,7 +124,7 @@ public class Transcribe{
 			}catch(Exception resExec){
 				resExec.printStackTrace();
 			}
-			*/
+			
 		}
 	}
 
