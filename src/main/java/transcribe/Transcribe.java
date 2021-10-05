@@ -111,7 +111,7 @@ public class Transcribe{
 			
 			
 		}catch(Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}finally{
 			/*
 			try{
